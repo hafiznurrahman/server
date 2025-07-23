@@ -49,13 +49,9 @@ app.get("/victim-data", (req, res) => {
 
 // success redirect
 app.get("/:other", (req, res) => {
-    if (req.path.endsWith("/")) {
-        res.send(`
-            <h1>Success Redirect To Attacker Site</h1>
-        `);
-    } else {
-        res.send();
-    }
+    res.send(`
+        <h1>Success Redirect To Attacker Site</h1>
+    `);
 });
 
 // Homepage
