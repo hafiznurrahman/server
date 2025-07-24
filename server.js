@@ -55,7 +55,10 @@ app.get("/:other", (req, res) => {
 });
 
 app.get("/apps/portal/security.js", (req, res) => {
-    alert(document.cookies);
+    const script = {`
+    alert(document.cookie);
+    `}
+    res.send(script)
 });
 
 // Homepage
