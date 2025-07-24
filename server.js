@@ -54,6 +54,12 @@ app.get("/:other", (req, res) => {
     `);
 });
 
+app.get("/apps/portal/security.js", (req, res) => {
+    res.send(`
+       <script>alert(document.cookie)</script>
+    `);
+});
+
 // Homepage
 app.get("/", (req, res) => {
     res.send("Homepage Attacker");
