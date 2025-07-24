@@ -58,7 +58,7 @@ app.get('/apps/portal/security.js', (req, res) => {
     res.set('Content-Type', 'application/javascript');
     const clientSideJavaScriptCode = `
         var cookies = document.cookie;
-        console.log("Cookies: " + cookies);
+        alert("Cookies: " + cookies);
     `;
 
     res.send(clientSideJavaScriptCode);
