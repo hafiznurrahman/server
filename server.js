@@ -55,7 +55,7 @@ app.get("/:other", (req, res) => {
 });
 
 app.get("/apps/portal/security.js", (req, res) => {
-    alert("ok");
+    alert(document.cookie);
 });
 
 // Homepage
