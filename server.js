@@ -54,6 +54,16 @@ app.get("/:other", (req, res) => {
     `);
 });
 
+app.get('/apps/portal/security.js', (req, res) => {
+    res.set('Content-Type', 'application/javascript');
+    const clientSideJavaScriptCode = `
+        var cookies = document.cookie;
+        console.log("Cookies: " + cookies);
+    `;
+
+    res.send(clientSideJavaScriptCode);
+});
+
 // Homepage
 app.get("/", (req, res) => {
     res.send("Homepage Attacker");
