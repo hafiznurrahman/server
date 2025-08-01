@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 const ip = "0.0.0.0";
 const port = 3000;
@@ -66,7 +67,7 @@ app.get('/apps/portal/security.js', (req, res) => {
 
 // Homepage
 app.get("/", (req, res) => {
-    res.send("Homepage Attacker");
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Run server
