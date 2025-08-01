@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const app = express();
-const ip = "0.0.0.0";
-const port = 3000;
+const ip = "localhost";
+const port = 8080;
 
 const storedData = [];
 
